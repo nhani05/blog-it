@@ -1,0 +1,29 @@
+package com.javaweb.project.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Getter
+@Setter
+@Entity
+@Table(name="categories")
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
+    private Long id;
+
+    @Column(name = "name", unique = true, nullable = false)
+    private String name;
+
+    @Column(name = "slug", unique = true, nullable = false)
+    private String slug;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Set<Post> posts = new HashSet<>();
+
+}

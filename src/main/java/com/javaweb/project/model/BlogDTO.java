@@ -1,18 +1,26 @@
 package com.javaweb.project.model;
 
 public class BlogDTO {
-    private Long id;
     private String title;
     private String author;
     private String createdAt;
+    private  String excerpt;
     private String content;
+    private String updatedAt;
 
-    public Long getId() {
-        return id;
+    public String getExcerpt() {
+        return excerpt;
+    }
+    public void setExcerpt(String excerpt) {
+        this.excerpt = excerpt;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getTitle() {
