@@ -1,11 +1,11 @@
 package com.javaweb.project.service;
 
-import com.javaweb.project.entity.Post;
-import com.javaweb.project.model.BlogDTO;
+import com.javaweb.project.dto.BlogDTO;
+import org.springframework.scheduling.support.SimpleTriggerContext;
 
-import java.util.List;
 import java.util.Set;
 
 public interface PostService {
-    public Set<BlogDTO> getAllBlogs();
+    public Set<BlogDTO> findAllBlogs();
+    public Set<BlogDTO> findBlogsByTitleOrAuthorName(String title, String authorName);
 }
