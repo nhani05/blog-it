@@ -1,6 +1,6 @@
 package com.javaweb.project.dto;
 
-public class BlogDTO {
+public class PostDTO {
     private String title;
     private String author;
     private String createdAt;
