@@ -1,4 +1,4 @@
-package com.javaweb.project.model;
+package com.javaweb.project.dto;
 
 public class BlogDTO {
     private String title;
