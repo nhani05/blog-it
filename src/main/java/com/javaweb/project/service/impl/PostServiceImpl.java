@@ -1,17 +1,17 @@
 package com.javaweb.project.service.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.javaweb.project.converter.PostConverter;
 import com.javaweb.project.dto.PostDTO;
+import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.repository.PostRepository;
 import com.javaweb.project.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -39,6 +39,12 @@ public class PostServiceImpl implements PostService {
             blogPosts.add(postConverter.convertToDTO(p));
         }
         return blogPosts;
+    }
+
+    @Override
+    public void updateBlogPost(Long id, UpdatePostRequest request) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+        postRepository.save(postConverter.convertToEntity(request, post));
     }
 
 //    @Override
