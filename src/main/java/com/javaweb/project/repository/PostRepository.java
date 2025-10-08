@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long>, PostCustom {
+    public void deleteById(Long id);
 //    public List<Post> findByTitleContainingIgnoreCaseOrAuthorUserDisplayNameContainingIgnoreCase(String title);
 }

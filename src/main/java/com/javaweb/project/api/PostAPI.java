@@ -1,13 +1,11 @@
 package com.javaweb.project.api;
 
-import com.javaweb.project.dto.response.ApiResponse;
 import com.javaweb.project.dto.PostDTO;
+import com.javaweb.project.dto.request.UpdatePostRequest;
+import com.javaweb.project.dto.response.ApiResponse;
 import com.javaweb.project.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -31,9 +29,21 @@ public class PostAPI {
     }
 
 
-    @PostMapping(value="/api/post/creation")
-    public void createB() {
-        // Logic to create a new blog post
-        System.out.println("Creating a new blog");
+//    @PostMapping(value="/api/post/creation")
+//    public void createB() {
+//        // Logic to create a new blog post
+//        System.out.println("Creating a new blog");
+//    }
+
+    @PutMapping(value="/api/post/update/{id}")
+    public ApiResponse<String> updateBlogPost(@PathVariable("id") Long id, @RequestBody UpdatePostRequest request) {
+        postService.updateBlogPost(id, request);
+        return new ApiResponse<>(200, "Success", "Post is updated successfully");
     }
+
+//    @DeleteMapping(value="/api/post/delete/{id}")
+//    public ApiResponse<String> deleteBlogPost(@PathVariable("id") Long id) {
+//        postService.deleteBlogPostById(id);
+//        return new ApiResponse<>(200, "Success", "Post is deleted");
+//    }
 }
