@@ -48,9 +48,10 @@ public class PostServiceImpl implements PostService {
     }
 
 //    @Override
-//    public Set<BlogDTO> getBlogsByTitle(String title) {
-//        Set<BlogDTO> blogs = new HashSet<BlogDTO>();
-//
-//        return Collections.emptySet();
+//    public void deleteBlogPostById(Long id) {
+//        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+//        postRepository.deleteById(id);
 //    }
+
+
 }
