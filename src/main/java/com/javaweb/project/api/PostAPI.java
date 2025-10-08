@@ -41,9 +41,9 @@ public class PostAPI {
         return new ApiResponse<>(200, "Success", "Post is updated successfully");
     }
 
-//    @DeleteMapping(value="/api/post/delete/{id}")
-//    public ApiResponse<String> deleteBlogPost(@PathVariable("id") Long id) {
-//        postService.deleteBlogPostById(id);
-//        return new ApiResponse<>(200, "Success", "Post is deleted");
-//    }
+    @DeleteMapping(value="/api/post/delete/{id}")
+    public ApiResponse<String> deleteBlogPost(@PathVariable("id") Long id) {
+        postService.deleteBlogPostById(id);
+        return new ApiResponse<>(200, "Success", "Post is deleted");
+    }
 }
