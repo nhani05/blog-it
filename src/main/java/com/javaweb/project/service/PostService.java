@@ -11,5 +11,5 @@ public interface PostService {
     public Set<PostDTO> findAllBlogs();
     public Set<PostDTO> findBlogsByTitleOrAuthorName(String title, String authorName);
     public void updateBlogPost(Long id, UpdatePostRequest request);
-//    public void deleteBlogPostById(Long id);
+    public void deleteBlogPostById(Long id);
 }
