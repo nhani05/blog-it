@@ -47,11 +47,11 @@ public class PostServiceImpl implements PostService {
         postRepository.save(postConverter.convertToEntity(request, post));
     }
 
-//    @Override
-//    public void deleteBlogPostById(Long id) {
-//        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
-//        postRepository.deleteById(id);
-//    }
+    @Override
+    public void deleteBlogPostById(Long id) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
+        postRepository.deleteById(id);
+    }
 
 
 }

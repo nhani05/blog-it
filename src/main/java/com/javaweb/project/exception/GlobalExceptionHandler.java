@@ -1,11 +1,12 @@
 package com.javaweb.project.exception;
 
 
-import javassist.tools.web.BadHttpRequest;
+//import javassist.tools.web.BadHttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDateTime;
 
@@ -22,8 +23,8 @@ public class GlobalExceptionHandler extends Exception{
         return new ResponseEntity<>(errorDetail, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(BadHttpRequest.class)
-    public ResponseEntity<Object> handleBadHttpRequest(BadHttpRequest badHttpRequest) {
+    @ExceptionHandler(HttpClientErrorException.BadRequest.class)
+    public ResponseEntity<Object> handleBadHttpRequest(HttpClientErrorException.BadRequest badHttpRequest) {
         ErrorDetail errorDetail = new ErrorDetail(
                 HttpStatus.BAD_REQUEST.value(),
                 badHttpRequest.getMessage(),
