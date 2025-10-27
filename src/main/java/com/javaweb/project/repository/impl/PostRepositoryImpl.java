@@ -3,11 +3,12 @@ package com.javaweb.project.repository.impl;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.repository.PostRepository;
 import com.javaweb.project.repository.custom.PostCustom;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
 import java.util.List;
 
 @Repository

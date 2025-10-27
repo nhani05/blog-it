@@ -29,11 +29,11 @@ public class PostAPI {
     }
 
 
-//    @PostMapping(value="/api/post/creation")
-//    public void createB() {
-//        // Logic to create a new blog post
-//        System.out.println("Creating a new blog");
-//    }
+    @PostMapping(value="/api/post/creation")
+    public void createB() {
+        // Logic to create a new blog post
+        System.out.println("Creating a new blog");
+    }
 
     @PutMapping(value="/api/post/update/{id}")
     public ApiResponse<String> updateBlogPost(@PathVariable("id") Long id, @RequestBody UpdatePostRequest request) {
