@@ -1,16 +1,10 @@
 package com.javaweb.project.converter;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.javaweb.project.dto.request.UpdatePostRequest;
-import com.javaweb.project.enums.PostStatus;
-import org.springframework.stereotype.Component;
-
 import com.javaweb.project.dto.PostDTO;
+import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.entity.User;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PostConverter {

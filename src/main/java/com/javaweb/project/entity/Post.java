@@ -3,6 +3,9 @@ package com.javaweb.project.entity;
 
 import com.javaweb.project.enums.PostStatus;
 import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
