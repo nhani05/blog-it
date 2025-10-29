@@ -1,4 +1,4 @@
-package com.javaweb.project.dto.request;
+package com.javaweb.project.model.request;
 
 
 import lombok.Getter;

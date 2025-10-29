@@ -1,4 +1,4 @@
-package com.javaweb.project.dto.request;
+package com.javaweb.project.model.request;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
