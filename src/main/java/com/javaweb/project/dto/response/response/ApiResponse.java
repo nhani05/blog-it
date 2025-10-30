@@ -1,4 +1,4 @@
-package com.javaweb.project.model.response;
+package com.javaweb.project.dto.response.response;
 
 
 import lombok.Getter;

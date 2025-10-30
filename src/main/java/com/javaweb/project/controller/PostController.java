@@ -1,8 +1,7 @@
 package com.javaweb.project.controller;
 
-import com.javaweb.project.model.response.PostDTO;
-import com.javaweb.project.model.request.UpdatePostRequest;
-import com.javaweb.project.model.response.ApiResponse;
+import com.javaweb.project.dto.response.response.PostDTO;
+import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

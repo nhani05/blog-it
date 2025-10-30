@@ -1,7 +1,7 @@
 package com.javaweb.project.converter;
 
-import com.javaweb.project.model.response.PostDTO;
-import com.javaweb.project.model.request.UpdatePostRequest;
+import com.javaweb.project.dto.response.response.PostDTO;
+import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.entity.User;
 import org.springframework.stereotype.Component;
