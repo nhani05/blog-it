@@ -1,7 +1,7 @@
 package com.javaweb.project.service.impl;
 
 import com.javaweb.project.converter.PostConverter;
-import com.javaweb.project.dto.response.response.PostDTO;
+import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.repository.PostRepository;

@@ -1,4 +1,4 @@
-package com.javaweb.project.dto.response.response;
+package com.javaweb.project.dto.response;
 
 public class PostDTO {
     private String title;
