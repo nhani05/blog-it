@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 public class Post {
 
     @Id
@@ -62,7 +62,7 @@ public class Post {
 
     @ManyToMany
     @JoinTable(
-        name = "post_tags",
+        name = "post_tag",
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
