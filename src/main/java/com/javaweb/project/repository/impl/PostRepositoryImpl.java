@@ -35,8 +35,8 @@ public class PostRepositoryImpl implements PostCustom {
 
     @Override
     public List<Post> findPostsByTitleOrAuthor(String title, String authorName) {
-        StringBuilder sql = new StringBuilder("select * from posts p ");
-        sql.append("inner join users u on p.author_id ");
+        StringBuilder sql = new StringBuilder("select * from post p ");
+        sql.append("inner join user u on p.author_id ");
         Query query = entityManager.createNativeQuery(addConditions(sql, title, authorName), Post.class);
         return query.getResultList();
     }
