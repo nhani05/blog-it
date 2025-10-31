@@ -26,7 +26,7 @@ public class PostDetail {
     private String endContent;
 
     @Column(name = "post_img", nullable = false)
-    private String imageDescription;
+    private String img;
 
     @Column(name = "post_link", nullable = false)
     private String link;

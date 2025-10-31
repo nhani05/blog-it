@@ -10,6 +10,6 @@ public class PostDetailDTO extends PostDTO{
     private String introduction;
     private  String contentDetail;
     private  String endContent;
-    private String imgDescription;
+    private String img;
     private String link;
 }
