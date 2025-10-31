@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.engine.internal.Cascade;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 public class Post {
 
     @Id
@@ -62,9 +63,13 @@ public class Post {
 
     @ManyToMany
     @JoinTable(
-        name = "post_tags",
+        name = "post_tag",
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private PostDetail postDetail;
 }
