@@ -2,22 +2,33 @@ package com.javaweb.project.converter;
 
 import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.request.UpdatePostRequest;
+import com.javaweb.project.dto.response.PostDetailDTO;
 import com.javaweb.project.entity.Post;
+import com.javaweb.project.entity.PostDetail;
 import com.javaweb.project.entity.User;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PostConverter {
-    public PostDTO convertToDTO(Post post) {
-        PostDTO postDTO = new PostDTO();
+
+    @Autowired
+    private ModelMapper modelMapper;
+    public PostDetailDTO convertToPostDetailDTO(Post post) {
+        PostDetail postDetail = post.getPostDetail();
+        PostDetailDTO postDetailDTO = modelMapper.map(postDetail, PostDetailDTO.class);
+
         User author = post.getAuthorUser();
-        postDTO.setTitle(post.getTitle());
-        postDTO.setContent(post.getContent());
-        postDTO.setExcerpt(post.getExcerpt());
-        postDTO.setAuthor(author.getDisplayName());
-        postDTO.setCreatedAt(post.getPublishedAt().toString());
-        postDTO.setUpdatedAt(post.getUpdatedAt().toString());
-        return postDTO;
+        postDetailDTO.setTitle(post.getTitle());
+        postDetailDTO.setContent(post.getContent());
+        postDetailDTO.setExcerpt(post.getExcerpt());
+        postDetailDTO.setAuthor(author.getDisplayName());
+        postDetailDTO.setCreatedAt(post.getPublishedAt().toString());
+        postDetailDTO.setUpdatedAt(post.getUpdatedAt().toString());
+
+
+        return postDetailDTO;
     }
 
     public Post convertToEntity(UpdatePostRequest request, Post post) {

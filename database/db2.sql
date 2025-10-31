@@ -1,13 +1,14 @@
+DROP TABLE IF EXISTS post_details;
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS tag;
 
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS category;
-DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS user_role;
-DROP TABLE IF EXISTS user;
 
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -42,7 +43,7 @@ CREATE TABLE post (
     published_at DATETIME,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     view_count INT DEFAULT 0,
-    
+    FOREIGN KEY (post_id) REFERENCES post_details(post_id),
     FOREIGN KEY (author_id) REFERENCES user(user_id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE SET NULL
 );
@@ -169,7 +170,7 @@ INSERT INTO comment (post_id, user_id, author_name, author_email, content, paren
 CREATE TABLE role (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL UNIQUE,
-    description VARCHAR(255)
+    code VARCHAR(255)
 );
 
 CREATE TABLE user_role (
@@ -179,3 +180,26 @@ CREATE TABLE user_role (
     FOREIGN KEY (user_id) REFERENCES user(user_id),
     FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
+
+create table post_details(
+	 post_id INT PRIMARY KEY,
+     post_introduction MEDIUMTEXT NOT null,
+     post_content MEDIUMTEXT not null,
+     post_end_content MEDIUMTEXT not null,
+     post_img varchar(1000) not null,
+     post_link varchar(1000) not null
+);
+
+insert into post_details(post_id, post_introduction, post_content, post_end_content, post_img, post_link) values 
+(1, 'Spring Boot JPA là một phần trong hệ sinh thái Spring Data, nó tạo ra một layer ở giữa tầng service và database, giúp chúng ta thao tác với database một cách dễ dàng hơn, tự động config và giảm thiểu code thừa thãi.\n
+Spring Boot JPA đã wrapper Hibernate và tạo ra một interface mạnh mẽ. Nếu như bạn gặp khó khăn khi làm việc với Hibernate thì đừng lo, bạn hãy để Spring JPA làm hộ.', 
+'   Việc cấu hình JPA (Java Persistence API) trong dự án Spring Boot được đơn giản hóa đáng kể nhờ vào tính năng tự động cấu hình của framework. Để bắt đầu, bạn cần thêm dependency spring-boot-starter-data-jpa vào file cấu hình dự án (pom.xml hoặc build.gradle). Dependency này sẽ tự động kéo theo các thư viện cần thiết như Spring Data JPA và Hibernate (thực thể triển khai JPA mặc định). Tiếp theo, bạn phải thêm JDBC driver tương ứng với hệ quản trị cơ sở dữ liệu (CSDL) mà bạn muốn sử dụng, ví dụ như MySQL Connector/J, PostgreSQL Driver, hoặc H2 Database. Các bước này đảm bảo rằng ứng dụng của bạn có đầy đủ các thành phần cốt lõi để hoạt động với cơ sở dữ liệu.\n
+    Sau khi đã có dependencies, bước tiếp theo là cấu hình thông tin kết nối CSDL trong file application.properties (hoặc application.yml). Các thuộc tính quan trọng cần khai báo bao gồm spring.datasource.url (địa chỉ kết nối CSDL), spring.datasource.username, và spring.datasource.password. Ngoài ra, để quản lý schema của CSDL, bạn nên cấu hình Hibernate DDL (Data Definition Language) thông qua thuộc tính spring.jpa.hibernate.ddl-auto. Thiết lập này có thể là update (cập nhật schema khi cần), create-drop (tạo mới và xóa khi ứng dụng dừng), hoặc none (không làm gì, thường dùng cho môi trường production). Spring Boot sẽ sử dụng các thông tin này để tự động tạo và quản lý các Beans quan trọng như DataSource và EntityManagerFactory.\n
+    Cuối cùng, sau khi cấu hình kết nối đã hoàn tất, bạn chỉ cần tập trung vào việc định nghĩa Entity và Repository. Các lớp Entity là các lớp Java được đánh dấu bằng @Entity và ánh xạ tới các bảng trong CSDL. Để tương tác với dữ liệu, bạn tạo Interfaces Repository kế thừa từ JpaRepository của Spring Data JPA, chỉ định lớp Entity và kiểu dữ liệu của khóa chính. Spring Data JPA sẽ tự động cung cấp các phương thức CRUD cơ bản (như save(), findById(), findAll()) và cho phép bạn định nghĩa các phương thức truy vấn tùy chỉnh theo quy ước đặt tên. Điều này giúp loại bỏ gần như toàn bộ mã truy vấn thủ công, cho phép bạn tập trung vào logic nghiệp vụ của ứng dụng.',
+'   Spring Boot đã đơn giản hóa triệt để cấu hình JPA thông qua cơ chế Tự động Cấu hình (Autoconfiguration), đặc biệt khi sử dụng spring-boot-starter-data-jpa. Điều này loại bỏ nhu cầu cấu hình thủ công phức tạp của các Beans như EntityManagerFactory, DataSource, và PlatformTransactionManager. Nhiệm vụ chính của nhà phát triển chỉ còn là:
+1.  Thêm Dependencies: Đảm bảo có spring-boot-starter-data-jpa và JDBC driver tương ứng.\n
+2.  Cấu hình Kết nối: Cung cấp thông tin kết nối cơ sở dữ liệu (URL, username, password) trong file application.properties hoặc application.yml.\n
+3.  Tập trung vào Nghiệp vụ: Chỉ cần định nghĩa các Entity và kế thừa từ các Repository của Spring Data JPA.\n
+4.  Nhờ cách tiếp cận này, nhà phát triển có thể tăng tốc độ phát triển bằng cách tập trung hoàn toàn vào logic nghiệp vụ và mô hình dữ liệu, thay vì mất thời gian vào các thiết lập nền tảng tẻ nhạt.',
+'https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/Spring_JPA_cover_ccab5429b6.jpg',
+'https://spring.io/projects/spring-data-jpa, https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa' )   ;

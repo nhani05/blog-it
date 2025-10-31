@@ -3,6 +3,7 @@ package com.javaweb.project.service.impl;
 import com.javaweb.project.converter.PostConverter;
 import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.request.UpdatePostRequest;
+import com.javaweb.project.dto.response.PostDetailDTO;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.repository.PostRepository;
 import com.javaweb.project.service.PostService;
@@ -58,6 +59,12 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Bài đăng không được tìm thấy hoặc không tồn tại"));
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public PostDetailDTO getAPostDetail(Long id) {
+        Post post = postRepository.findById(id).get();
+        return postConverter.convertToPostDetailDTO(post);
     }
 
 
