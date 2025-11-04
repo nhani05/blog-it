@@ -1,5 +1,6 @@
 package com.javaweb.project.controller;
 
+import com.javaweb.project.dto.request.CreatePostRequest;
 import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.dto.response.PostDetailDTO;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -32,10 +34,11 @@ public class PostController {
     }
 
 
-    @PostMapping(value="/post/creation")
-    public void createB() {
-        // Logic to create a new blog post
-        System.out.println("Creating a new blog");
+//    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping(value="/post/create")
+    public  ResponseEntity<String> createBlogPost(@RequestBody CreatePostRequest request) {
+        postService.createNewBlogPost(request);
+        return new ResponseEntity<>("Post is created", org.springframework.http.HttpStatus.CREATED);
     }
 
     @PutMapping(value="/post/update/{id}")

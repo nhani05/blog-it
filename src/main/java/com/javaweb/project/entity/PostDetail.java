@@ -31,6 +31,8 @@ public class PostDetail {
     @Column(name = "post_link", nullable = false)
     private String link;
 
-    @OneToOne(mappedBy = "postDetail")
+    @OneToOne
+    @MapsId // <--- CHÌA KHÓA QUAN TRỌNG: Dùng lại id của Post
+    @JoinColumn(name = "post_id")
     private Post post;
 }
