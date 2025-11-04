@@ -69,7 +69,6 @@ public class Post {
     )
     private Set<Tag> tags = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id")
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private PostDetail postDetail;
 }

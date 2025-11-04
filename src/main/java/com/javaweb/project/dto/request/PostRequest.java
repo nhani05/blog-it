@@ -17,7 +17,5 @@ public class PostRequest {
     private  String content;
     private String excerpt;
     private  String slug;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedAt;
     private PostStatus status = PostStatus.draft;
 }

@@ -1,16 +1,22 @@
 package com.javaweb.project.service.impl;
 
 import com.javaweb.project.converter.PostConverter;
+import com.javaweb.project.dto.request.CreatePostRequest;
 import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.dto.response.PostDetailDTO;
 import com.javaweb.project.entity.Post;
+import com.javaweb.project.entity.User;
 import com.javaweb.project.repository.PostRepository;
+import com.javaweb.project.repository.UserRepository;
 import com.javaweb.project.service.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.net.CacheRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,6 +26,9 @@ import java.util.Set;
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -64,7 +73,17 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDetailDTO getAPostDetail(Long id) {
         Post post = postRepository.findById(id).get();
-        return postConverter.convertToPostDetailDTO(post);
+        return postConverter.convertPostToPostDetailDTO(post);
+    }
+
+    @Override
+    public void createNewBlogPost(CreatePostRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User author = userRepository.findByUsername(username);
+        Post post = postConverter.convertPostDetailDTOToEntity(request);
+        post.setAuthorUser(author);
+        postRepository.save(post);
     }
 
 
