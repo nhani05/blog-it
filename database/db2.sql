@@ -4,8 +4,9 @@
 DROP TABLE IF EXISTS post_tag;
 DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS comment;
-DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS post_details;
+DROP TABLE IF EXISTS post;
+
 DROP TABLE IF EXISTS category;
 DROP TABLE IF EXISTS user_role;
 DROP TABLE IF EXISTS role;
@@ -162,8 +163,6 @@ CREATE TABLE comment (
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     post_id INT NOT NULL,
     user_id INT,
-    author_name VARCHAR(100),
-    author_email VARCHAR(100),
     content TEXT NOT NULL,
     parent_comment_id INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -173,7 +172,7 @@ CREATE TABLE comment (
     FOREIGN KEY (parent_comment_id) REFERENCES comment(comment_id) ON DELETE CASCADE
 );
 
-INSERT INTO comment (post_id, user_id, author_name, author_email, content, parent_comment_id, status) VALUES
-(2, NULL, 'Nguyễn Văn A', 'a@gmail.com', 'Bài viết rất hay và dễ hiểu!', NULL, 'approved'),
-(2, 1, 'Quản Trị Viên', 'admin@blog.com', 'Cảm ơn phản hồi của bạn!', 1, 'approved'),
-(1, NULL, 'Lê Thị B', 'b@dev.vn', 'Tôi đang gặp lỗi khi sử dụng @OneToMany trong Entity...', NULL, 'pending');
+INSERT INTO comment (post_id, user_id, content, parent_comment_id, status) VALUES
+(2, 1,  'Bài viết rất hay và dễ hiểu!', NULL, 'approved'),
+(2, 1,'Cảm ơn phản hồi của bạn!', 1, 'approved'),
+(1, 2, 'Tôi đang gặp lỗi khi sử dụng @OneToMany trong Entity...', NULL, 'pending');

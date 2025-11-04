@@ -41,7 +41,7 @@ public class PostServiceImpl implements PostService {
         Set<PostDTO> blogPosts = new HashSet<PostDTO>();
         List<Post> posts = postRepository.findAll();
         for (Post p : posts) {
-            blogPosts.add(modelMapper.map(p, PostDTO.class));
+            blogPosts.add(postConverter.convertPostToPostDTO(p));
         }
         return blogPosts;
     }
@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
         Set<PostDTO> blogPosts = new HashSet<>();
         List<Post> posts = postRepository.findPostsByTitleOrAuthor(title, authorName);
         for(Post p : posts) {
-            blogPosts.add(modelMapper.map(p, PostDTO.class));
+            blogPosts.add(postConverter.convertPostToPostDTO(p));
         }
         return blogPosts;
     }
@@ -60,7 +60,7 @@ public class PostServiceImpl implements PostService {
     public void updateBlogPost(Long id, UpdatePostRequest request) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Bài đăng không được tìm thấy hoặc không tồn tại"));
-        postRepository.save(postConverter.convertToEntity(request, post));
+        postRepository.save(postConverter.convertUpdatePostRequestToEntity(request, post));
     }
 
     @Override
@@ -68,6 +68,13 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Bài đăng không được tìm thấy hoặc không tồn tại"));
         postRepository.deleteById(id);
+    }
+
+    @Override
+    public PostDTO findBlogById(Long id) {
+        Post p = postRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Bài đăng không được tìm thấy hoặc không tồn tại"));
+        return postConverter.convertPostToPostDTO(p);
     }
 
     @Override
@@ -81,10 +88,11 @@ public class PostServiceImpl implements PostService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User author = userRepository.findByUsername(username);
-        Post post = postConverter.convertPostDetailDTOToEntity(request);
+        Post post = postConverter.convertCreatePostRequestToEntity(request);
         post.setAuthorUser(author);
         postRepository.save(post);
     }
+
 
 
 }

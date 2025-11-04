@@ -10,7 +10,6 @@ import java.sql.Timestamp;
 @Setter
 public class UserDTO {
     private String username;
-
     private String displayName;
 
 }
