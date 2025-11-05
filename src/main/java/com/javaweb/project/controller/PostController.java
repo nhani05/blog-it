@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class PostController {
 
     @Autowired
@@ -24,6 +25,12 @@ public class PostController {
     public ResponseEntity<Set<PostDTO>> getAllBlogPosts() {
         Set<PostDTO> blogs = postService.findAllBlogs();
         return new ResponseEntity<>(blogs, org.springframework.http.HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/post/{id}")
+    public ResponseEntity<PostDTO> getBlogPostById(@PathVariable("id") Long id) {
+        PostDTO blog = postService.findBlogById(id);
+        return new ResponseEntity<>(blog, org.springframework.http.HttpStatus.OK);
     }
 
     @GetMapping(value = "/posts/search")

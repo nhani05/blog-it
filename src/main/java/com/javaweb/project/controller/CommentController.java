@@ -3,9 +3,11 @@ package com.javaweb.project.controller;
 import com.javaweb.project.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class CommentController {
     @Autowired
     private CommentService commentService;

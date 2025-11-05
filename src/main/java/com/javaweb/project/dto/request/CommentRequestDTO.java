@@ -6,10 +6,6 @@ import java.time.LocalDateTime;
 
 public class CommentRequestDTO {
     private Long postId;
-
-    private String authorName;
-    private String authorEmail;
-
     private String content;
 
     private LocalDateTime createdAt;
