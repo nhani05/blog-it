@@ -42,8 +42,8 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_comment_id")
-    private Comment parentComment;
+//    @ManyToOne
+//    @JoinColumn(name = "parent_comment_id")
+//    private Comment parentComment;
 
 }
