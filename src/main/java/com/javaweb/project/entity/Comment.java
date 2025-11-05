@@ -17,11 +17,11 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
-
-    @Column(name= "author_name")
-    private String authorName;
-    @Column(name= "author_email")
-    private String authorEmail;
+//
+//    @Column(name= "author_name")
+//    private String authorName;
+//    @Column(name= "author_email")
+//    private String authorEmail;
 
     @Lob
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
@@ -42,8 +42,8 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_comment_id")
-    private Comment parentComment;
+//    @ManyToOne
+//    @JoinColumn(name = "parent_comment_id")
+//    private Comment parentComment;
 
 }
