@@ -75,7 +75,9 @@ public class PostConverter {
         post.setSlug(request.getSlug());
         post.setPublishedAt(request.getCreatedAt());
         post.setUpdatedAt(request.getUpdatedAt());
+        post.setViewCount(0);
         post.setStatus(PostStatus.draft);
+
         postDetail.setPost(post);
         post.setPostDetail(postDetail);
         return post;

@@ -1,6 +1,7 @@
 package com.javaweb.project.dto.request;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.response.PostDetailDTO;
@@ -12,6 +13,9 @@ import lombok.Setter;
 public class CreatePostRequest extends PostRequest {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
+
+    private List<String> tagNameList;
+    private String categoryName;
     private String introduction;
     private String contentDetail;
     private String endContent;
