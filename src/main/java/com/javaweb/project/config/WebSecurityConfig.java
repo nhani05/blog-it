@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/posts/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts/search").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/posts/detail/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/post/detail/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
