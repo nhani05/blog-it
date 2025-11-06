@@ -9,6 +9,7 @@ import com.javaweb.project.repository.CommentRepository;
 import com.javaweb.project.repository.PostRepository;
 import com.javaweb.project.repository.UserRepository;
 import com.javaweb.project.service.CommentService;
+import com.javaweb.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,8 +24,9 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     @Autowired
     private PostRepository postRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
     private CommentConverter commentConverter;
@@ -35,7 +37,7 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new NoSuchElementException("POST DOES NOT EXIST"));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        User user = userRepository.findByUsername(username);
+        User user = userService.findByUsername(username);
         Comment comment = commentConverter.covertCommentDTOToComment(commentRequestDTO);
         user.getComments().add(comment);
         post.getComments().add(comment);
