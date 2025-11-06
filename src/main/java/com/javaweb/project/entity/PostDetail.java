@@ -32,7 +32,7 @@ public class PostDetail {
     private String link;
 
     @OneToOne
-    @MapsId // <--- CHÌA KHÓA QUAN TRỌNG: Dùng lại id của Post
+    @MapsId //  Dùng lại id của Post
     @JoinColumn(name = "post_id")
     private Post post;
 }

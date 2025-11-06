@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -22,8 +22,8 @@ public class PostController {
     private PostService postService;
 
     @GetMapping(value = "/posts")
-    public ResponseEntity<Set<PostDTO>> getAllBlogPosts() {
-        Set<PostDTO> blogs = postService.findAllBlogs();
+    public ResponseEntity<List<PostDTO>> getAllBlogPosts() {
+        List<PostDTO> blogs = postService.findAllBlogs();
         return new ResponseEntity<>(blogs, org.springframework.http.HttpStatus.OK);
     }
 
@@ -34,9 +34,9 @@ public class PostController {
     }
 
     @GetMapping(value = "/posts/search")
-    public ResponseEntity<Set<PostDTO>> filterBlogPostsByASearchTerm(@RequestParam("title") String title,
+    public ResponseEntity<List<PostDTO>> filterBlogPostsByASearchTerm(@RequestParam("title") String title,
                                                              @RequestParam("authorName") String authorName) {
-        Set<PostDTO> blogs = postService.findBlogsByTitleOrAuthorName(title, authorName);
+        List<PostDTO> blogs = postService.findBlogsByTitleOrAuthorName(title, authorName);
         return new ResponseEntity<>(blogs, org.springframework.http.HttpStatus.OK);
     }
 
@@ -45,24 +45,34 @@ public class PostController {
     @PostMapping(value="/post/create")
     public  ResponseEntity<String> createBlogPost(@RequestBody CreatePostRequest request) {
         postService.createNewBlogPost(request);
-        return new ResponseEntity<>("Post is created", org.springframework.http.HttpStatus.CREATED);
+        return new ResponseEntity<>("Bai dang da duoc tao thanh cong", org.springframework.http.HttpStatus.CREATED);
     }
 
     @PutMapping(value="/post/update/{id}")
     public ResponseEntity<String> updateBlogPost(@PathVariable("id") Long id, @RequestBody UpdatePostRequest request) {
         postService.updateBlogPost(id, request);
-        return new ResponseEntity<>("Post is updated", org.springframework.http.HttpStatus.OK);
+        return new ResponseEntity<>("Bai dang da duoc cap nhat", org.springframework.http.HttpStatus.OK);
     }
 
     @DeleteMapping(value="/post/delete/{id}")
     public ResponseEntity<String> deleteBlogPost(@PathVariable("id") Long id) {
         postService.deleteBlogPostById(id);
-        return new ResponseEntity<>("Post is deleted", org.springframework.http.HttpStatus.OK);
+        return new ResponseEntity<>("Bai dang da duoc xoa thanh cong", org.springframework.http.HttpStatus.OK);
     }
 
     @GetMapping(value= "/post/detail/{id}")
     public ResponseEntity<PostDetailDTO> getASinglePostDetail(@PathVariable("id") Long id) {
         PostDetailDTO postDetailDTO = postService.getAPostDetail(id);
         return new ResponseEntity<>(postDetailDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/post/myblog")
+    public ResponseEntity<Object> getMyBlog() {
+        List<PostDTO> postDTOs = postService.getAllMyBlog();
+        if(postDTOs.isEmpty()) {
+            return ResponseEntity.ok("User chua co bai dang nao");
+        } else {
+            return ResponseEntity.ok(postDTOs);
+        }
     }
 }

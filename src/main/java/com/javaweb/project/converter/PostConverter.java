@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PostConverter {
@@ -41,13 +41,13 @@ public class PostConverter {
         postDetailDTO.setCategoryName(post.getCategory().getName());
 
         CommentConverter commentConverter = new CommentConverter();
-        Set<CommentDTO> commentDTOs = new HashSet<>();
+        List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
         postDTO.setCommentDTOs(commentDTOs);
 
-        Set<TagDTO> tagDTOs = new HashSet<>();
+        List<TagDTO> tagDTOs = new ArrayList<>();
         for(Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);
@@ -90,14 +90,14 @@ public class PostConverter {
         postDTO.setCategoryName(post.getCategory().getName());
 
         CommentConverter commentConverter = new CommentConverter();
-        Set<CommentDTO> commentDTOs = new HashSet<>();
+        List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
         postDTO.setCommentDTOs(commentDTOs);
 
 
-        Set<TagDTO> tagDTOs = new HashSet<>();
+        List<TagDTO> tagDTOs = new ArrayList<>();
         for(Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);

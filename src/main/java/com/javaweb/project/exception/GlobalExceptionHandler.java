@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of(
                         "status", HttpStatus.UNAUTHORIZED.value(),
-                        "error", "Không được phép truy cập (Unauthorized)",
+                        "error", "Tai khoan chua duoc xac thuc",
                         "message", ex.getMessage()
                 ));
     }
@@ -75,7 +75,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .body(Map.of(
                         "status", HttpStatus.CONFLICT.value(),
-                        "error", "Xung đột dữ liệu (Conflict)",
+                        "error", "Xung đột dữ liệu",
                         "message", ex.getMessage()
                 ));
     }

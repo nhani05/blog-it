@@ -2,8 +2,8 @@ package com.javaweb.project.service.impl;
 
 import com.javaweb.project.converter.PostConverter;
 import com.javaweb.project.dto.request.CreatePostRequest;
-import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.request.UpdatePostRequest;
+import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.response.PostDetailDTO;
 import com.javaweb.project.entity.Category;
 import com.javaweb.project.entity.Post;
@@ -16,16 +16,12 @@ import com.javaweb.project.repository.TagRepository;
 import com.javaweb.project.repository.UserRepository;
 import com.javaweb.project.service.PostService;
 import com.javaweb.project.utils.SlugUtils;
-import org.apache.coyote.BadRequestException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import java.net.CacheRequest;
 import java.util.*;
 
 @Service
@@ -49,8 +45,8 @@ public class PostServiceImpl implements PostService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Set<PostDTO> findAllBlogs() {
-        Set<PostDTO> blogPosts = new HashSet<PostDTO>();
+    public List<PostDTO> findAllBlogs() {
+        List<PostDTO> blogPosts = new ArrayList<>();
         List<Post> posts = postRepository.findAll();
         for (Post p : posts) {
             blogPosts.add(postConverter.convertPostToPostDTO(p));
@@ -59,8 +55,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Set<PostDTO> findBlogsByTitleOrAuthorName(String title, String authorName) {
-        Set<PostDTO> blogPosts = new HashSet<>();
+    public List<PostDTO> findBlogsByTitleOrAuthorName(String title, String authorName) {
+        List<PostDTO> blogPosts = new ArrayList<>();
         List<Post> posts = postRepository.findPostsByTitleOrAuthor(title, authorName);
         for(Post p : posts) {
             blogPosts.add(postConverter.convertPostToPostDTO(p));
@@ -112,6 +108,18 @@ public class PostServiceImpl implements PostService {
         postRepository.save(post);
     }
 
+    @Override
+    public List<PostDTO> getAllMyBlog() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        List<Post> posts = userRepository.findPostByUsername(username);
+        List<PostDTO> postDTOs = new ArrayList<>();
+        for(Post p : posts) {
+            postDTOs.add(postConverter.convertPostToPostDTO(p));
+        }
+        return postDTOs;
+    }
+
     private String generateSlugPost(String postTitle) {
         String postSlug = SlugUtils.toSlug(postTitle);
         if(postRepository.existsBySlugIgnoreCase(postSlug)) {
@@ -133,8 +141,8 @@ public class PostServiceImpl implements PostService {
     }
 
 
-    private Set<Tag> checkTag(List<String> tagNameList) {
-        Set<Tag> tags = new HashSet<>();
+    private List<Tag> checkTag(List<String> tagNameList) {
+        List<Tag> tags = new ArrayList<>();
         for(String tagName : tagNameList) {
             String tagSlug = SlugUtils.toSlug(tagName);
             if(tagRepository.existsBySlug(tagSlug)) {
