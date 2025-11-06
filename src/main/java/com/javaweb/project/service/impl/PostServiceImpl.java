@@ -112,9 +112,9 @@ public class PostServiceImpl implements PostService {
     public List<PostDTO> getAllMyBlog() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        List<Post> posts = userRepository.findPostByUsername(username);
         List<PostDTO> postDTOs = new ArrayList<>();
-        for(Post p : posts) {
+        User user = userRepository.findByUsername(username);
+        for(Post p : user.getPosts()) {
             postDTOs.add(postConverter.convertPostToPostDTO(p));
         }
         return postDTOs;
