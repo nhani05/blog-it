@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void addAccount(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new IllegalStateException("username da ton tai");
+            throw new IllegalStateException("USERNAME ALREADY EXISTS");
         }
 
         User user = new User();

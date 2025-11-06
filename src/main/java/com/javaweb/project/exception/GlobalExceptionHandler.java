@@ -15,20 +15,15 @@ import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
     // 400 - Bad Request (Validation)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
-        }
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of(
                         "status", HttpStatus.BAD_REQUEST.value(),
-                        "error", "Dữ liệu không hợp lệ",
-                        "details", errors
+                        "error", "NO VALID",
+                        "details", ex.getMessage()
                 ));
     }
 
@@ -39,7 +34,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of(
                         "status", HttpStatus.UNAUTHORIZED.value(),
-                        "error", "Tai khoan chua duoc xac thuc",
+                        "error", "ACCOUNT HAVE NOT BEEN AUTHENTICATED YET",
                         "message", ex.getMessage()
                 ));
     }
@@ -51,7 +46,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.FORBIDDEN)
                 .body(Map.of(
                         "status", HttpStatus.FORBIDDEN.value(),
-                        "error", "Truy cập bị từ chối (Forbidden)",
+                        "error", "YOU CAN NOT ACCESS THIS RESOURCE",
                         "message", ex.getMessage()
                 ));
     }
@@ -63,19 +58,7 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(Map.of(
                         "status", HttpStatus.NOT_FOUND.value(),
-                        "error", "Không tìm thấy tài nguyên",
-                        "message", ex.getMessage()
-                ));
-    }
-
-    // 409 - Conflict
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<?> handleConflict(IllegalStateException ex) {
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(Map.of(
-                        "status", HttpStatus.CONFLICT.value(),
-                        "error", "Xung đột dữ liệu",
+                        "error", "NOT FOUND - THIS RESOURCE IS NOT FOUND",
                         "message", ex.getMessage()
                 ));
     }
@@ -83,12 +66,11 @@ public class GlobalExceptionHandler {
     // 500 - Internal Server Error (mặc định)
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGeneral(Exception ex) {
-        ex.printStackTrace(); // để log ra console, có thể bỏ khi deploy
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of(
                         "status", HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        "error", "Lỗi hệ thống",
+                        "error", "INTERNAL SERVER ERROR",
                         "message", ex.getMessage()
                 ));
     }

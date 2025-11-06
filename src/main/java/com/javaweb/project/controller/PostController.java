@@ -45,19 +45,19 @@ public class PostController {
     @PostMapping(value="/post/create")
     public  ResponseEntity<String> createBlogPost(@RequestBody CreatePostRequest request) {
         postService.createNewBlogPost(request);
-        return new ResponseEntity<>("Bai dang da duoc tao thanh cong", org.springframework.http.HttpStatus.CREATED);
+        return new ResponseEntity<>("POST IS CREATED SUCCESSFULLY", org.springframework.http.HttpStatus.CREATED);
     }
 
     @PutMapping(value="/post/update/{id}")
     public ResponseEntity<String> updateBlogPost(@PathVariable("id") Long id, @RequestBody UpdatePostRequest request) {
         postService.updateBlogPost(id, request);
-        return new ResponseEntity<>("Bai dang da duoc cap nhat", org.springframework.http.HttpStatus.OK);
+        return new ResponseEntity<>("POST IS UPDATED SUCCESSFULLY", org.springframework.http.HttpStatus.OK);
     }
 
     @DeleteMapping(value="/post/delete/{id}")
     public ResponseEntity<String> deleteBlogPost(@PathVariable("id") Long id) {
         postService.deleteBlogPostById(id);
-        return new ResponseEntity<>("Bai dang da duoc xoa thanh cong", org.springframework.http.HttpStatus.OK);
+        return new ResponseEntity<>("POST IS DELETED SUCCESSFULLY", org.springframework.http.HttpStatus.OK);
     }
 
     @GetMapping(value= "/post/detail/{id}")
@@ -70,7 +70,7 @@ public class PostController {
     public ResponseEntity<Object> getMyBlog() {
         List<PostDTO> postDTOs = postService.getAllMyBlog();
         if(postDTOs.isEmpty()) {
-            return ResponseEntity.ok("User chua co bai dang nao");
+            return ResponseEntity.ok("USER DONT HAVE ANY POST");
         } else {
             return ResponseEntity.ok(postDTOs);
         }

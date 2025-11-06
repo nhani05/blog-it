@@ -20,7 +20,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest req) {
         authService.addAccount(req);
-        return ResponseEntity.ok("Dang ky thanh cong");
+        return ResponseEntity.ok("SUCCESSFULLY");
     }
 
     @PostMapping("/login")

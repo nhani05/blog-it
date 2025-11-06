@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.awt.*;
-
 @Getter
 @Setter
 @Entity
@@ -32,7 +30,7 @@ public class PostDetail {
     private String link;
 
     @OneToOne
-    @MapsId //  Dùng lại id của Post
+    @MapsId // Map id voi Post
     @JoinColumn(name = "post_id")
     private Post post;
 }

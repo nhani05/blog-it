@@ -9,7 +9,6 @@ import com.javaweb.project.entity.Category;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.entity.Tag;
 import com.javaweb.project.entity.User;
-import com.javaweb.project.enums.PostStatus;
 import com.javaweb.project.repository.CategoryRepository;
 import com.javaweb.project.repository.PostRepository;
 import com.javaweb.project.repository.TagRepository;
@@ -22,7 +21,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -67,21 +68,21 @@ public class PostServiceImpl implements PostService {
     @Override
     public void updateBlogPost(Long id, UpdatePostRequest request) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Bài đăng không được tìm thấy hoặc không tồn tại"));
+                .orElseThrow(() -> new NoSuchElementException("NOT FOUND"));
         postRepository.save(postConverter.convertUpdatePostRequestToEntity(request, post));
     }
 
     @Override
     public void deleteBlogPostById(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Bài đăng không được tìm thấy hoặc không tồn tại"));
+                .orElseThrow(() -> new NoSuchElementException("NOT FOUND"));
         postRepository.deleteById(id);
     }
 
     @Override
     public PostDTO findBlogById(Long id) {
         Post p = postRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Bài đăng không được tìm thấy hoặc không tồn tại"));
+                .orElseThrow(() -> new NoSuchElementException("NOT FOUND"));
         return postConverter.convertPostToPostDTO(p);
     }
 
@@ -103,7 +104,6 @@ public class PostServiceImpl implements PostService {
         post.setTags(checkTag(request.getTagNameList()));
 
         post.setViewCount(1);
-        post.setStatus(PostStatus.published);
         post.setAuthorUser(author);
         postRepository.save(post);
     }

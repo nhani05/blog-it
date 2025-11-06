@@ -1,7 +1,6 @@
 package com.javaweb.project.entity;
 
 
-import com.javaweb.project.enums.PostStatus;
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -44,10 +43,6 @@ public class Post {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "ENUM('draft', 'published', 'archived') DEFAULT 'draft')")
-    private PostStatus status = PostStatus.draft;
 
     @Column(name = "view_count", columnDefinition = "INTEGER DEFAULT 0")
     private Integer viewCount;

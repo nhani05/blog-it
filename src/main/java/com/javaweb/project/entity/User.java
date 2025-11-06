@@ -34,9 +34,6 @@ public class User {
     @Column(name= "display_name")
     private String displayName;
 
-    @Column(name= "is_admin", columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean isAdmin = false;
-
     @Column(name= "created_at", updatable = false)
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 
