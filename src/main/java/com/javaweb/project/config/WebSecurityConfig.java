@@ -43,6 +43,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/post/create").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/post/update/**").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/post/delete/**").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/post/myblog").authenticated()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

@@ -7,14 +7,13 @@ import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.response.PostDetailDTO;
 import com.javaweb.project.dto.response.TagDTO;
 import com.javaweb.project.entity.*;
-import com.javaweb.project.enums.PostStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class PostConverter {
@@ -36,18 +35,17 @@ public class PostConverter {
         postDetailDTO.setPublishedAt(post.getPublishedAt());
         postDetailDTO.setUpdatedAt(post.getUpdatedAt());
 
-        postDetailDTO.setStatus(post.getStatus());
         postDetailDTO.setViewCount(post.getViewCount());
         postDetailDTO.setCategoryName(post.getCategory().getName());
 
         CommentConverter commentConverter = new CommentConverter();
-        Set<CommentDTO> commentDTOs = new HashSet<>();
+        List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
         postDTO.setCommentDTOs(commentDTOs);
 
-        Set<TagDTO> tagDTOs = new HashSet<>();
+        List<TagDTO> tagDTOs = new ArrayList<>();
         for(Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);
@@ -62,7 +60,6 @@ public class PostConverter {
         post.setExcerpt(request.getExcerpt());
         post.setSlug(request.getSlug());
         post.setUpdatedAt(LocalDateTime.now());
-        post.setStatus(request.getStatus());
         return post;
     }
 
@@ -76,7 +73,6 @@ public class PostConverter {
         post.setPublishedAt(request.getCreatedAt());
         post.setUpdatedAt(request.getUpdatedAt());
         post.setViewCount(0);
-        post.setStatus(PostStatus.draft);
 
         postDetail.setPost(post);
         post.setPostDetail(postDetail);
@@ -90,14 +86,14 @@ public class PostConverter {
         postDTO.setCategoryName(post.getCategory().getName());
 
         CommentConverter commentConverter = new CommentConverter();
-        Set<CommentDTO> commentDTOs = new HashSet<>();
+        List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
         postDTO.setCommentDTOs(commentDTOs);
 
 
-        Set<TagDTO> tagDTOs = new HashSet<>();
+        List<TagDTO> tagDTOs = new ArrayList<>();
         for(Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);

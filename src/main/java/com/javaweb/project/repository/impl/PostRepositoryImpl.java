@@ -18,8 +18,6 @@ public class PostRepositoryImpl implements PostCustom {
 
     @Override
     public List<Post> findPosts() {
-        // Implementation of custom method to find posts
-        // Implementation of custom method to find posts
         String jpql = "select p from Post p";
         Query query = entityManager.createQuery(jpql, Post.class);
         return query.getResultList();

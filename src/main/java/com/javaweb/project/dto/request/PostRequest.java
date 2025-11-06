@@ -1,12 +1,5 @@
 package com.javaweb.project.dto.request;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.javaweb.project.enums.PostStatus;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,5 +11,5 @@ public class PostRequest {
     private  String content;
     private String excerpt;
     private  String slug;
-    private PostStatus status = PostStatus.draft;
+
 }

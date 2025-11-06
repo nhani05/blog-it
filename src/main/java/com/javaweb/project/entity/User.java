@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -33,14 +34,11 @@ public class User {
     @Column(name= "display_name")
     private String displayName;
 
-    @Column(name= "is_admin", columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean isAdmin = false;
-
     @Column(name= "created_at", updatable = false)
     private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 
     @OneToMany(mappedBy = "authorUser", cascade = CascadeType.ALL)
-    private Set<Post> posts = new HashSet<>();
+    private List<Post> posts = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -48,8 +46,8 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Comment> comments = new HashSet<>();
+    private List<Comment> comments = new ArrayList<>();
 }

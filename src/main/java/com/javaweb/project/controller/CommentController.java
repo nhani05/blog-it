@@ -18,7 +18,7 @@ public class CommentController {
     public ResponseEntity<Object> writeComment(@PathVariable("postId") Long postId,
                                                @RequestBody CommentRequestDTO commentRequestDTO) {
         commentService.addCommentToPost(postId, commentRequestDTO);
-        return new ResponseEntity<>("Binh luan cua ban da duoc ghi nhan", HttpStatus.OK);
+        return new ResponseEntity<>("COMMENT IS CREATED", HttpStatus.OK);
     }
 
     @PutMapping(value = "/comment/updation/{id}")

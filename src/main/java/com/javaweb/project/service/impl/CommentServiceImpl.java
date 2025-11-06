@@ -5,11 +5,9 @@ import com.javaweb.project.dto.request.CommentRequestDTO;
 import com.javaweb.project.entity.Comment;
 import com.javaweb.project.entity.Post;
 import com.javaweb.project.entity.User;
-import com.javaweb.project.enums.CommentStatus;
 import com.javaweb.project.repository.CommentRepository;
 import com.javaweb.project.repository.PostRepository;
 import com.javaweb.project.repository.UserRepository;
-import com.javaweb.project.repository.custom.CommentCustom;
 import com.javaweb.project.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -34,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void addCommentToPost(Long postId, CommentRequestDTO commentRequestDTO) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new NoSuchElementException("Bai dang khong ton tai"));
+                .orElseThrow(() -> new NoSuchElementException("POST DOES NOT EXIST"));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userRepository.findByUsername(username);
@@ -43,7 +41,6 @@ public class CommentServiceImpl implements CommentService {
         post.getComments().add(comment);
         comment.setPost(post);
         comment.setUser(user);
-        comment.setStatus(CommentStatus.approved);
         commentRepository.save(comment);
     }
 }

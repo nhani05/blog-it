@@ -1,7 +1,6 @@
 package com.javaweb.project.entity;
 
 
-import com.javaweb.project.enums.PostStatus;
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -11,7 +10,9 @@ import lombok.Setter;
 import org.hibernate.engine.internal.Cascade;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -43,10 +44,6 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", columnDefinition = "ENUM('draft', 'published', 'archived') DEFAULT 'draft')")
-    private PostStatus status = PostStatus.draft;
-
     @Column(name = "view_count", columnDefinition = "INTEGER DEFAULT 0")
     private Integer viewCount;
 
@@ -59,7 +56,7 @@ public class Post {
     private Category category;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<Comment> comments = new HashSet<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -67,7 +64,7 @@ public class Post {
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private Set<Tag> tags = new HashSet<>();
+    private List<Tag> tags = new ArrayList<>();
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private PostDetail postDetail;

@@ -1,12 +1,10 @@
 package com.javaweb.project.dto.request;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import com.javaweb.project.dto.response.PostDTO;
-import com.javaweb.project.dto.response.PostDetailDTO;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
