@@ -18,6 +18,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 public class PostController {
 
+    // them sua xoa , myblog can dang nhap
     @Autowired
     private PostService postService;
 
@@ -27,6 +28,7 @@ public class PostController {
         return new ResponseEntity<>(blogs, org.springframework.http.HttpStatus.OK);
     }
 
+    //
     @GetMapping(value = "/post/{id}")
     public ResponseEntity<PostDTO> getBlogPostById(@PathVariable("id") Long id) {
         PostDTO blog = postService.findBlogById(id);
@@ -75,4 +77,5 @@ public class PostController {
             return ResponseEntity.ok(postDTOs);
         }
     }
+
 }

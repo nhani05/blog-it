@@ -35,10 +35,15 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(HttpMethod.GET, "/post/create").authenticated()
+                                .requestMatchers(HttpMethod.POST, "/post/create").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/post/update/**").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/post/delete/**").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/post/myblog").authenticated()
+
+                        .requestMatchers(HttpMethod.POST, "/post/{postId}/comment").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/post/{postId}/comments/{id}").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/post/{postId}/comments/{id}").authenticated()
+
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
