@@ -17,6 +17,8 @@ public class CommentConverter {
 
     public CommentDTO covertCommentToCommentDTO(Comment comment) {
             CommentDTO commentDTO = new CommentDTO();
+            commentDTO.setId(comment.getId());
+            commentDTO.setUserId(comment.getUser().getId());
             commentDTO.setDisplayName(comment.getUser().getDisplayName());
             commentDTO.setContentComment(comment.getContent());
         return commentDTO;

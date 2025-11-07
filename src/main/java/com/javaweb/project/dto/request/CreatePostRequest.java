@@ -11,12 +11,11 @@ import java.util.List;
 public class CreatePostRequest extends PostRequest {
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
-
-    private List<String> tagNameList;
-    private String categoryName;
-    private String introduction;
-    private String contentDetail;
-    private String endContent;
-    private String img;
-    private String link;
+//    private List<String> tagNameList;
+//    private String categoryName;
+//    private String introduction;
+//    private String contentDetail;
+//    private String endContent;
+//    private String img;
+//    private String link;
 }
