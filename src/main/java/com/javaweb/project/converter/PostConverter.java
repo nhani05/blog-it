@@ -56,11 +56,21 @@ public class PostConverter {
     }
 
     public Post convertUpdatePostRequestToEntity(UpdatePostRequest request, Post post) {
+        PostDetail postDetail = post.getPostDetail();
+        postDetail.setIntroduction(request.getIntroduction());
+        postDetail.setContent(request.getContent());
+        postDetail.setEndContent(request.getEndContent());
+        postDetail.setImg(request.getImg());
+        postDetail.setLink(request.getLink());
+
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
         post.setExcerpt(request.getExcerpt());
         post.setSlug(request.getSlug());
-        post.setUpdatedAt(LocalDateTime.now());
+        post.setUpdatedAt(request.getUpdatedAt());
+
+        postDetail.setPost(post);
+        post.setPostDetail(postDetail);
         return post;
     }
 
