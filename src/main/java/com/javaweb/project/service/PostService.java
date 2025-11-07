@@ -13,7 +13,7 @@ import java.util.Set;
 
 public interface PostService {
     public List<PostDTO> findAllBlogs();
-    public List<PostDTO> findBlogsByTitleOrAuthorName(String title, String authorName);
+//    public List<PostDTO> findBlogsByTitleOrAuthorName(String title, String authorName);
     public void updateBlogPost(Long id, UpdatePostRequest request);
     public void deleteBlogPostById(Long id);
     public PostDTO findBlogById(Long id);
@@ -21,4 +21,5 @@ public interface PostService {
     public PostDetailDTO getAPostDetail(Long id);
     public void createNewBlogPost(CreatePostRequest request);
     public List<PostDTO> getAllMyBlog();
+    public List<PostDTO> findPostsByTitle(String title);
 }

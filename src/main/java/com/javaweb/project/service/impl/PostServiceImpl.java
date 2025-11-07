@@ -50,9 +50,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDTO> findBlogsByTitleOrAuthorName(String title, String authorName) {
+    public List<PostDTO> findPostsByTitle(String title) {
         List<PostDTO> blogPosts = new ArrayList<>();
-        List<Post> posts = postRepository.findPostsByTitleOrAuthor(title, authorName);
+        List<Post> posts = postRepository.findByTitleIsContainingIgnoreCase(title);
         for(Post p : posts) {
             blogPosts.add(postConverter.convertPostToPostDTO(p));
         }

@@ -36,9 +36,8 @@ public class PostController {
     }
 
     @GetMapping(value = "/posts/search")
-    public ResponseEntity<List<PostDTO>> filterBlogPostsByASearchTerm(@RequestParam("title") String title,
-                                                             @RequestParam("authorName") String authorName) {
-        List<PostDTO> blogs = postService.findBlogsByTitleOrAuthorName(title, authorName);
+    public ResponseEntity<List<PostDTO>> findBlosPostByTitle(@RequestParam("title") String title) {
+        List<PostDTO> blogs = postService.findPostsByTitle(title);
         return new ResponseEntity<>(blogs, org.springframework.http.HttpStatus.OK);
     }
 
