@@ -14,6 +14,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    // deu can dang nhap de xac thuc
     @PostMapping(value = "/post/{postId}/comment")
     public ResponseEntity<Object> writeComment(@PathVariable("postId") Long postId,
                                                @RequestBody CommentRequestDTO commentRequestDTO) {
