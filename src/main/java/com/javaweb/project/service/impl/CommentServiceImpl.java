@@ -37,12 +37,14 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new NoSuchElementException("POST DOES NOT EXIST"));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
+
         User user = userService.findByUsername(username);
         Comment comment = commentConverter.covertCommentDTOToComment(commentRequestDTO);
         user.getComments().add(comment);
         post.getComments().add(comment);
         comment.setPost(post);
         comment.setUser(user);
+
         commentRepository.save(comment);
     }
 

@@ -17,10 +17,9 @@ public class CommentConverter {
     private ModelMapper modelMapper;
 
     public CommentDTO covertCommentToCommentDTO(Comment comment) {
-        CommentDTO commentDTO = new CommentDTO();
+        CommentDTO commentDTO = modelMapper.map(comment, CommentDTO.class);
         UserDTO userDTO = modelMapper.map(comment.getUser(), UserDTO.class);
         commentDTO.setUserDTO(userDTO);
-        commentDTO.setContentComment(comment.getContent());
         return commentDTO;
     }
 
