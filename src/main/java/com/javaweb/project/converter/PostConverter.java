@@ -26,7 +26,6 @@ public class PostConverter {
 
     public PostDetailDTO convertPostToPostDetailDTO(Post post) {
         PostDetail postDetail = post.getPostDetail();
-        PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         PostDetailDTO postDetailDTO = modelMapper.map(postDetail, PostDetailDTO.class);
 
         User author = post.getAuthorUser();
@@ -41,15 +40,14 @@ public class PostConverter {
         postDetailDTO.setViewCount(post.getViewCount());
         postDetailDTO.setCategoryName(post.getCategory().getName());
 
-//        CommentConverter commentConverter = new CommentConverter();
         List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
-        postDTO.setCommentDTOs(commentDTOs);
+        postDetailDTO.setCommentDTOs(commentDTOs);
 
         List<TagDTO> tagDTOs = new ArrayList<>();
-        for(Tag tag : post.getTags()) {
+        for (Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);
         }
@@ -58,21 +56,11 @@ public class PostConverter {
     }
 
     public Post convertUpdatePostRequestToEntity(UpdatePostRequest request, Post post) {
-        PostDetail postDetail = post.getPostDetail();
-        postDetail.setIntroduction(request.getIntroduction());
-        postDetail.setContent(request.getContent());
-        postDetail.setEndContent(request.getEndContent());
-        postDetail.setImg(request.getImg());
-        postDetail.setLink(request.getLink());
-
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
         post.setExcerpt(request.getExcerpt());
         post.setSlug(request.getSlug());
-        post.setUpdatedAt(request.getUpdatedAt());
-
-        postDetail.setPost(post);
-        post.setPostDetail(postDetail);
+        post.setUpdatedAt(LocalDateTime.now());
         return post;
     }
 
@@ -98,16 +86,14 @@ public class PostConverter {
         postDTO.setAuthorName(author.getDisplayName());
         postDTO.setCategoryName(post.getCategory().getName());
 
-        CommentConverter commentConverter = new CommentConverter();
         List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
         postDTO.setCommentDTOs(commentDTOs);
 
-
         List<TagDTO> tagDTOs = new ArrayList<>();
-        for(Tag tag : post.getTags()) {
+        for (Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);
         }
