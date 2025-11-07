@@ -27,7 +27,7 @@ import java.util.Arrays;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-    private final JwtAuthenticationFilter jwtFilter; // Giữ lại cái này
+    private final JwtAuthenticationFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -35,11 +35,6 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/api/auth/**").permitAll()
-//                        .requestMatchers(HttpMethod.GET,"/posts/**").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/posts/search").permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/post/**").permitAll()
-//                        .requestMatchers(HttpMethod.GET,"/posts/detail/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/post/create").authenticated()
                                 .requestMatchers(HttpMethod.PUT, "/post/update/**").authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/post/delete/**").authenticated()

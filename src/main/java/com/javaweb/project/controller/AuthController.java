@@ -3,14 +3,11 @@ package com.javaweb.project.controller;
 import com.javaweb.project.dto.request.LoginRequest;
 import com.javaweb.project.dto.request.RegisterRequest;
 import com.javaweb.project.dto.response.AuthResponse;
-import com.javaweb.project.entity.User;
 import com.javaweb.project.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
