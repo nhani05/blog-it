@@ -3,6 +3,7 @@ package com.javaweb.project.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,5 +22,6 @@ public class PostRequest {
     private String endContent;
     private String img;
     private String link;
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
 }
