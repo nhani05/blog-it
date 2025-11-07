@@ -10,7 +10,5 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class UpdatePostRequest extends PostRequest {
-    private Long id;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedAt;
+//    private Long id;
 }
