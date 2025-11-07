@@ -5,17 +5,14 @@ import com.javaweb.project.dto.request.CreatePostRequest;
 import com.javaweb.project.dto.request.UpdatePostRequest;
 import com.javaweb.project.dto.response.PostDTO;
 import com.javaweb.project.dto.response.PostDetailDTO;
-import com.javaweb.project.entity.Category;
 import com.javaweb.project.entity.Post;
-import com.javaweb.project.entity.Tag;
 import com.javaweb.project.entity.User;
-import com.javaweb.project.repository.CategoryRepository;
 import com.javaweb.project.repository.PostRepository;
-import com.javaweb.project.repository.TagRepository;
-import com.javaweb.project.repository.UserRepository;
+import com.javaweb.project.service.CategoryService;
 import com.javaweb.project.service.PostService;
+import com.javaweb.project.service.TagService;
+import com.javaweb.project.service.UserService;
 import com.javaweb.project.utils.SlugUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,19 +28,16 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
     private PostConverter postConverter;
 
     @Autowired
-    private TagRepository tagRepository;
+    private UserService userService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
+
+    @Autowired
+    private TagService tagService;
 
     @Override
     public List<PostDTO> findAllBlogs() {
@@ -96,12 +90,12 @@ public class PostServiceImpl implements PostService {
     public void createNewBlogPost(CreatePostRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        User author = userRepository.findByUsername(username);
+        User author = userService.findByUsername(username);
         Post post = postConverter.convertCreatePostRequestToEntity(request);
-
         post.setSlug(generateSlugPost(request.getTitle()));
-        post.setCategory(checkCategory(request.getCategoryName()));
-        post.setTags(checkTag(request.getTagNameList()));
+
+        post.setCategory(categoryService.addCategoryToPost(request.getCategoryName()));
+        post.setTags(tagService.addTagToPost(request.getTagNameList()));
 
         post.setViewCount(1);
         post.setAuthorUser(author);
@@ -113,7 +107,7 @@ public class PostServiceImpl implements PostService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         List<PostDTO> postDTOs = new ArrayList<>();
-        User user = userRepository.findByUsername(username);
+        User user = userService.findByUsername(username);
         for(Post p : user.getPosts()) {
             postDTOs.add(postConverter.convertPostToPostDTO(p));
         }
@@ -126,36 +120,6 @@ public class PostServiceImpl implements PostService {
             postSlug = SlugUtils.toUniqueSlug(postSlug);
         }
         return postSlug;
-    }
-
-    private Category checkCategory(String categoryName) {
-        String categorySlug = SlugUtils.toSlug(categoryName);
-        if(categoryRepository.existsBySlug(categorySlug)) {
-            return categoryRepository.findBySlug(categorySlug);
-        }
-        Category category = new Category();
-        category.setSlug(categorySlug);
-        category.setName(categoryName);
-        categoryRepository.save(category);
-        return category;
-    }
-
-
-    private List<Tag> checkTag(List<String> tagNameList) {
-        List<Tag> tags = new ArrayList<>();
-        for(String tagName : tagNameList) {
-            String tagSlug = SlugUtils.toSlug(tagName);
-            if(tagRepository.existsBySlug(tagSlug)) {
-                tags.add(tagRepository.findBySlug(tagSlug));
-            } else {
-                Tag tag = new Tag();
-                tag.setName(tagName);
-                tag.setSlug(tagSlug);
-                tagRepository.save(tag);
-                tags.add(tag);
-            }
-        }
-        return tags;
     }
 
 }
