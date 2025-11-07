@@ -19,6 +19,9 @@ import java.util.List;
 public class PostConverter {
 
     @Autowired
+    private CommentConverter commentConverter;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     public PostDetailDTO convertPostToPostDetailDTO(Post post) {
@@ -38,7 +41,7 @@ public class PostConverter {
         postDetailDTO.setViewCount(post.getViewCount());
         postDetailDTO.setCategoryName(post.getCategory().getName());
 
-        CommentConverter commentConverter = new CommentConverter();
+//        CommentConverter commentConverter = new CommentConverter();
         List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
