@@ -19,11 +19,13 @@ import java.util.List;
 public class PostConverter {
 
     @Autowired
+    private CommentConverter commentConverter;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     public PostDetailDTO convertPostToPostDetailDTO(Post post) {
         PostDetail postDetail = post.getPostDetail();
-        PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         PostDetailDTO postDetailDTO = modelMapper.map(postDetail, PostDetailDTO.class);
 
         User author = post.getAuthorUser();
@@ -38,15 +40,14 @@ public class PostConverter {
         postDetailDTO.setViewCount(post.getViewCount());
         postDetailDTO.setCategoryName(post.getCategory().getName());
 
-        CommentConverter commentConverter = new CommentConverter();
         List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
-        postDTO.setCommentDTOs(commentDTOs);
+        postDetailDTO.setCommentDTOs(commentDTOs);
 
         List<TagDTO> tagDTOs = new ArrayList<>();
-        for(Tag tag : post.getTags()) {
+        for (Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);
         }
@@ -95,16 +96,14 @@ public class PostConverter {
         postDTO.setAuthorName(author.getDisplayName());
         postDTO.setCategoryName(post.getCategory().getName());
 
-        CommentConverter commentConverter = new CommentConverter();
         List<CommentDTO> commentDTOs = new ArrayList<>();
         for (Comment comment : post.getComments()) {
             commentDTOs.add(commentConverter.covertCommentToCommentDTO(comment));
         }
         postDTO.setCommentDTOs(commentDTOs);
 
-
         List<TagDTO> tagDTOs = new ArrayList<>();
-        for(Tag tag : post.getTags()) {
+        for (Tag tag : post.getTags()) {
             TagDTO tagDTO = modelMapper.map(tag, TagDTO.class);
             tagDTOs.add(tagDTO);
         }
