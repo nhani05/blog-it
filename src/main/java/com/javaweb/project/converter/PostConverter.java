@@ -61,6 +61,15 @@ public class PostConverter {
         post.setExcerpt(request.getExcerpt());
         post.setSlug(request.getSlug());
         post.setUpdatedAt(LocalDateTime.now());
+
+        PostDetail postDetail = post.getPostDetail();
+        postDetail.setIntroduction(request.getIntroduction());
+        postDetail.setContent(request.getContentDetail());
+        postDetail.setEndContent(request.getEndContent());
+        postDetail.setImg(request.getImg());
+        postDetail.setLink(request.getLink());
+        postDetail.setPost(post);
+        post.setPostDetail(postDetail);
         return post;
     }
 

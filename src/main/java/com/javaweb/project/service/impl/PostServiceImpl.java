@@ -63,7 +63,15 @@ public class PostServiceImpl implements PostService {
     public void updateBlogPost(Long id, UpdatePostRequest request) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("NOT FOUND"));
-        postRepository.save(postConverter.convertUpdatePostRequestToEntity(request, post));
+        post = postConverter.convertUpdatePostRequestToEntity(request, post);
+        post.setSlug(generateSlugPost(request.getTitle()));
+        if(request.getCategoryName() != null || !request.getCategoryName().trim().isEmpty()) {
+            post.setCategory(categoryService.addCategoryToPost(request.getCategoryName()));
+        }
+        if(request.getTagNameList() != null) {
+            post.setTags(tagService.addTagToPost(request.getTagNameList()));
+        }
+        postRepository.save(post);
     }
 
     @Override
@@ -94,8 +102,15 @@ public class PostServiceImpl implements PostService {
         Post post = postConverter.convertCreatePostRequestToEntity(request);
         post.setSlug(generateSlugPost(request.getTitle()));
 
-        post.setCategory(categoryService.addCategoryToPost(request.getCategoryName()));
-        post.setTags(tagService.addTagToPost(request.getTagNameList()));
+
+        if(request.getCategoryName() != null || !request.getCategoryName().trim().isEmpty()) {
+            post.setCategory(categoryService.addCategoryToPost(request.getCategoryName()));
+        }
+        if(request.getTagNameList() != null) {
+            post.setTags(tagService.addTagToPost(request.getTagNameList()));
+        }
+//        post.setCategory(categoryService.addCategoryToPost(request.getCategoryName()));
+//        post.setTags(tagService.addTagToPost(request.getTagNameList()));
 
         post.setViewCount(1);
         post.setAuthorUser(author);
