@@ -24,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private RoleRepository roleRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder; // web security config bean
     @Autowired
     private AuthenticationManager authManager;
     @Autowired

@@ -33,6 +33,3 @@ public class AuthController {
         return ResponseEntity.ok(new AuthResponse(token));
     }
 }
-
-
-//eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInN1YiI6Im5ndXllbnZhbmMiLCJqdGkiOiI0IiwiaWF0IjoxNzYyMjE5NjYzLCJleHAiOjE3NjIyMjMyNjN9.avNW3EnfaQ0bIxFRN1QbUrEsuzwm5q_Q6_ZBCLhjBJo

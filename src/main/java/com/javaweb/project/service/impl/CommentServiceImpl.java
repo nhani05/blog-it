@@ -47,14 +47,6 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void editComment(Long id, CommentRequestDTO commentRequestDTO) {
-        Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("COMMENT DOES NOT EXIST"));
-        comment.setContent(commentRequestDTO.getContent());
-        commentRepository.save(comment);
-    }
-
-    @Override
     public void deleteComment(Long id) {
         commentRepository.deleteById(id);
     }

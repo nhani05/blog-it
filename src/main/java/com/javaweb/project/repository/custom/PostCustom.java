@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface PostCustom {
     public List<Post> findPosts();
-    public List<Post> findPostsByTitleOrAuthor(String title, String authorName);
+//    public List<Post> findPostsByTitleOrAuthor(String title, String authorName);
 }

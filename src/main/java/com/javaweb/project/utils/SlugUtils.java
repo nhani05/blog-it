@@ -11,7 +11,7 @@ public class SlugUtils {
         slug = Normalizer.normalize(slug, Normalizer.Form.NFD);
         slug = slug.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
-        slug = slug.replaceAll("[^a-z0-9\\s-]", "");
+        slug = slug.replaceAll("[^a-z0-9\\s-+]", "");
 
         slug = slug.trim().replaceAll("\\s+", "-");
 
